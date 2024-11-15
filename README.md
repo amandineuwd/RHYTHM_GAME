@@ -9,3 +9,5 @@ Pendant la partie, le personnage avance doit éviter des obstacles en mouvement.
 Le leaderboard présente les meilleurs scores des différents joueurs. Les fichiers CSV sont lus pour extraire les scores les plus élevés, qui sont triés et affichés. Ce tableau permet aux joueurs de comparer leurs performances avec celles des autres. Une interface simple permet de revenir facilement au menu principal depuis n’importe quelle page.
 
 Le jeu est conçu pour être accessible, avec une gestion automatique de la connexion Arduino et des modes de contrôle adaptés. Les données collectées comprennent le pseudo, le sexe, l’âge, la main dominante, le score, et la durée de la partie.
+
+Démo jeu : https://youtu.be/4xGVq6NUdqs
