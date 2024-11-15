@@ -4,7 +4,7 @@ import serial
 import time
 import csv
 import os
-import pandas as pd  # Assurez-vous d'installer pandas avec `pip install pandas`
+import pandas as pd
 from datetime import datetime
 
 pygame.init()
@@ -158,7 +158,6 @@ def draw_leaderboard():
 
 # Dessiner l'écran de pause
 def draw_pause_screen():
-    screen.fill(BLACK)
     pause_text = font.render("Paused", True, WHITE)
     return_text = font.render("Press B to return to menu", True, WHITE)
     screen.blit(pause_text, (350, 250))
@@ -167,7 +166,6 @@ def draw_pause_screen():
 
 # Dessiner l'écran de fin de jeu
 def draw_game_over_screen():
-    screen.fill(BLACK)
     game_over_text = font.render("GAME OVER", True, WHITE)
     restart_text = font.render("Press R to play again", True, WHITE)
     return_text = font.render("Press B to return to menu", True, WHITE)
@@ -196,11 +194,13 @@ while running:
                 elif event.key == pygame.K_l:
                     leaderboard = True
                     menu = False
+        
         elif leaderboard:
             draw_leaderboard()
             if event.type == pygame.KEYDOWN and event.key == pygame.K_b:
                 leaderboard = False
                 menu = True
+        
         elif game_over:
             if duration == 0:
                 pygame.mixer.music.stop()
@@ -217,13 +217,17 @@ while running:
                     game_over = False
                     menu = True
                     duration = 0
+        
         elif game_paused:
+            pygame.mixer.music.pause()  # Met la musique en pause
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_b:
                     game_paused = False
                     menu = True
                 elif event.key == pygame.K_p:
                     game_paused = False
+                    pygame.mixer.music.unpause()  # Reprend la musique
+
         else:
             if arduino_connected:
                 arduino_input = read_arduino()
@@ -274,7 +278,9 @@ while running:
             screen.blit(obstacle['img'], obstacle['rect'].topleft)
 
         score_text = font.render(f"Score: {score}", True, WHITE)
-        screen.blit(score_text, (10, 10))
+        screen.blit(score_text, (670, 30))
+        pause_text = font.render("Pause (P)", True, WHITE)
+        screen.blit(pause_text, (30, 30))
 
         pygame.display.update()
         clock.tick(60)
